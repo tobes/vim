@@ -7320,6 +7320,7 @@ set_chars_option(varp)
 	{&lcs_eol,	"eol"},
 	{&lcs_ext,	"extends"},
 	{&lcs_nbsp,	"nbsp"},
+	{&lcs_space,	"space"},
 	{&lcs_prec,	"precedes"},
 	{&lcs_tab2,	"tab"},
 	{&lcs_trail,	"trail"},

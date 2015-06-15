@@ -4307,6 +4307,26 @@ win_line(wp, lnum, startrow, endrow, nochange)
 #endif
 	    ++ptr;
 
+	    /* 'list' : change char 32 to lcs_space. */
+	    if (wp->w_p_list && (c == 32
+#ifdef FEAT_MBYTE
+			|| (mb_utf8 && mb_c == 32)
+#endif
+		    ) && lcs_space){
+		c = lcs_space;
+#ifdef FEAT_MBYTE
+		mb_c = c;
+		if (enc_utf8 && (*mb_char2len)(c) > 1)
+		{
+		    mb_utf8 = TRUE;
+		    u8cc[0] = 0;
+		    c = 0xc0;
+		}
+		else
+		    mb_utf8 = FALSE;	/* don't draw as UTF-8 */
+#endif
+	    }
+
 	    /* 'list' : change char 160 to lcs_nbsp. */
 	    if (wp->w_p_list && (c == 160
 #ifdef FEAT_MBYTE
